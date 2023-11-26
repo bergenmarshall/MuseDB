@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>museDB</title>
+</head>
+<body>
+
+<!-- Page Header -->
+<header>
+    <img src="logo.png" alt="MuseDB Logo" onclick="redirectToHome()">
+    <h1>MuseDB</h1>
+</header>
+
+<!-- Home Page Content -->
+<div class="content">
+    <button onclick="redirectToLogin()">Login</button>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button onclick="redirectToTopRated('artists')">Top Artists</button>
+        <button onclick="redirectToTopRated('albums')">Top Albums</button>
+        <button onclick="redirectToTopRated('songs')">Top Songs</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
