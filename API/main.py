@@ -1,10 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from requests import post
+import yaml
 
 app = FastAPI()
 
-CLIENT_ID = "c382d8bbbf134a979779b608c9a4e569"
-CLIENT_SECRET = "407035c091134b25adfd0791965f61a1"
+with open("config.yml", "r") as f:
+    config = yaml.safe_load(f)
+
+CLIENT_ID = "44c406646f0c4b289780822a3f64724e"
+CLIENT_SECRET = config["CLIENT_SECRET"]
 ACCESS_TOKEN = ""
 
 @app.on_event("startup")
