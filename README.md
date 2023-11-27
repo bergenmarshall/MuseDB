@@ -1,7 +1,7 @@
 # MuseDB
 ## Setup For Developement Guide
 - Have a working instance of python
-- Install uvicorn and fastapi using pip
+- Install our python packages using 'pip install -r requirements.txt'
 - Run the command 'uvicorn main:app --reload'
 - If this does not work, you may need to run 'python -m uvicorn main:app --reload'
 - The API should now be running. Look at the result of the uvicorn function to learn where
