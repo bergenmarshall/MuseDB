@@ -51,3 +51,7 @@ async def search(query: str, search_type: str):
         for i in response.json()["artists"]["items"]:
             return_val[i["id"]] = {"name": i["name"], "image": i["images"][0]["url"]}
     return return_val
+
+@app.post("/submit-review")
+async def submit_review(username: str, song_id: str, review_val: int):
+    return {"username": username, "song_id": song_id, "review_val": review_val}
