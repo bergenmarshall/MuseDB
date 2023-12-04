@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from requests import post, get
-import yaml
+from yaml import safe_load
+import pandas as pd
 
 app = FastAPI()
 
@@ -14,21 +15,19 @@ app.add_middleware(
 )
 
 with open("config.yml", "r") as f:
-    config = yaml.safe_load(f)
+    config = safe_load(f)
 
 CLIENT_ID = "44c406646f0c4b289780822a3f64724e"
 CLIENT_SECRET = config["CLIENT_SECRET"]
+
+users = pd.read_csv("../DB/users.csv")
+reviews = pd.read_csv("../DB/reviews.csv")
 
 async def get_token():
     response = post("https://accounts.spotify.com/api/token", data={"grant_type": "client_credentials"}, auth=(CLIENT_ID, CLIENT_SECRET))
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="Unable to get token from Spotify")
     return response.json()["access_token"]
-
-@app.on_event("startup")
-async def startup_event():
-    # connect to DB Here
-    pass
 
 @app.post("/login")
 async def login(username: str, password: str):
@@ -62,5 +61,9 @@ async def search(query: str, search_type: str):
     return return_val
 
 @app.post("/submit-review")
-async def submit_review(username: str, song_id: str, review_val: int):
+async def submit_review(username: str, song_id: int, review_val: int):
+    user_id = users[users["username"] == username]["userID"].values[0]
+    reviews.loc[len(reviews)] = [user_id, song_id, review_val]
+
+    reviews.to_csv('../DB/reviews.csv', index = False)
     return {"username": username, "song_id": song_id, "review_val": review_val}
