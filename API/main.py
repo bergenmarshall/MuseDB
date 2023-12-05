@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-with open("config.yml", "r") as f:
+with open("../config.yml", "r") as f:
     config = safe_load(f)
 
 CLIENT_ID = "44c406646f0c4b289780822a3f64724e"
