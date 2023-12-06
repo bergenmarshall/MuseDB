@@ -154,4 +154,6 @@ const artistExample = {
 }
 
 // Update the template with Spotify data when the page loads
-window.onload = updateTemplateBasedOnCriteria(artistExample);
+window.addEventListener('load', function () {
+    updateTemplateBasedOnCriteria(artistExample);
+});
