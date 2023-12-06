@@ -69,13 +69,13 @@ function submitRegistrationForm() {
 
 let spotifyArtistData = {
     type: "artist",
-    name: "Artist Name",
-    imageUrl: "artist_image.jpg",
+    name: "Stevie Wonder",
+    imageUrl: "stevie_wonder.jpg",
 };
 
 let spotifyAlbumData = {
     type: "album",
-    name: "Album Name",
+    name: "Songs In The Key Of Life",
     imageUrl: "album_image.jpg",
     artist: "Album Artist",
 };
@@ -121,6 +121,18 @@ function updateTrackTemplate() {
     detailsContainer.appendChild(albumElement);
 }
 
+// Function to update the template with Artist data
+function updateArtistTemplate() {
+    document.getElementById("pageTitle").innerText = spotifyArtistData.name;
+    document.getElementById("mediaTitle").innerText = spotifyArtistData.name;
+    document.getElementById("mediaContainer").getElementsByTagName("img")[0].src = spotifyArtistData.imageUrl;
+
+    const detailsContainer = document.getElementById("detailsContainer");
+    detailsContainer.innerHTML = ""; // Clear existing details
+
+    // Add artist-specific details if needed
+}
+
 // Function to submit the rating (will be updated later)
 function submitRating() {
     // Placeholder code to indicate that the rating will be updated later
@@ -137,9 +149,9 @@ function updateTemplateBasedOnCriteria(clickedItem) {
     }
 }
 
-const example = {
+const artistExample = {
     type: "artist"
 }
 
 // Update the template with Spotify data when the page loads
-window.onload = updateTemplateBasedOnCriteria(example);
+window.onload = updateTemplateBasedOnCriteria(artistExample);
