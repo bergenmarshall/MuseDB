@@ -76,16 +76,16 @@ let spotifyArtistData = {
 let spotifyAlbumData = {
     type: "album",
     name: "Songs In The Key Of Life",
-    imageUrl: "album_image.jpg",
-    artist: "Album Artist",
+    imageUrl: "Stevie_Songs_In_The_Key_Of_Life.jpg",
+    artist: "Stevie Wonder",
 };
 
 let spotifyTrackData = {
     type: "track",
-    name: "Track Name",
-    imageUrl: "track_album_image.jpg",
-    artist: "Track Artist",
-    album: "Track Album",
+    name: "Saturn",
+    imageUrl: "Stevie_Songs_In_The_Key_Of_Life.jpg",
+    artist: "Stevie Wonder",
+    album: "Songs In The Key of Life",
 };
 
 
