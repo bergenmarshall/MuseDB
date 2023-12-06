@@ -1,7 +1,3 @@
-
-
-
-var attempt = 3;
 // Function to redirect to the login page
 function redirectToLogin() {
     window.location.href = 'login.html';
@@ -12,6 +8,14 @@ function redirectToTopRated(category) {
     // Use placeholder URLs for now
     window.location.href = `top-rated-${category}.html`;
 }
+
+// Function to redirect to the home page
+function redirectToHome() {
+    window.location.href = 'index.html';
+}
+
+var attempt = 3;
+
 
 function submitLoginForm() {
     // Add actual login functionality here when the backend is implemented
@@ -42,11 +46,6 @@ function submitLoginForm() {
         // return false;
         // }
         
-}
-
-// Function to redirect to the home page
-function redirectToHome() {
-    window.location.href = 'index.html';
 }
 
 function submitRegistrationForm() {
