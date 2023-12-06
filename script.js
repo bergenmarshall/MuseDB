@@ -138,22 +138,3 @@ function submitRating() {
     // Placeholder code to indicate that the rating will be updated later
     alert("Rating will be updated in the database. (Placeholder)");
 }
-
-function updateTemplateBasedOnCriteria(clickedItem) {
-    if (clickedItem.type === "artist") {
-        updateArtistTemplate();
-    } else if (clickedItem.type === "album") {
-        updateAlbumTemplate();
-    } else if (clickedItem.type === "track") {
-        updateTrackTemplate();
-    }
-}
-
-const artistExample = {
-    type: "artist"
-}
-
-// Update the template with Spotify data when the page loads
-window.addEventListener('load', function () {
-    updateTemplateBasedOnCriteria(artistExample);
-});
