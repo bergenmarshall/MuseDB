@@ -67,3 +67,80 @@ function submitRegistrationForm() {
     } 
     }; 
 }
+
+let spotifyArtistData = {
+    type: "artist",
+    name: "Artist Name",
+    imageUrl: "artist_image.jpg",
+};
+
+let spotifyAlbumData = {
+    type: "album",
+    name: "Album Name",
+    imageUrl: "album_image.jpg",
+    artist: "Album Artist",
+};
+
+let spotifyTrackData = {
+    type: "track",
+    name: "Track Name",
+    imageUrl: "track_album_image.jpg",
+    artist: "Track Artist",
+    album: "Track Album",
+};
+
+
+// Function to update the template with Spotify data
+function updateAlbumTemplate() {
+    document.getElementById("pageTitle").innerText = spotifyAlbumData.name;
+    document.getElementById("mediaTitle").innerText = spotifyAlbumData.name;
+    document.getElementById("mediaContainer").getElementsByTagName("img")[0].src = spotifyAlbumData.imageUrl;
+
+    const detailsContainer = document.getElementById("detailsContainer");
+    detailsContainer.innerHTML = ""; // Clear existing details
+
+    const artistElement = document.createElement("p");
+    artistElement.innerText = `Artist: ${spotifyAlbumData.artist}`;
+    detailsContainer.appendChild(artistElement);
+}
+
+// Function to update the template with Track data
+function updateTrackTemplate() {
+    document.getElementById("pageTitle").innerText = spotifyTrackData.name;
+    document.getElementById("mediaTitle").innerText = spotifyTrackData.name;
+    document.getElementById("mediaContainer").getElementsByTagName("img")[0].src = spotifyTrackData.imageUrl;
+
+    const detailsContainer = document.getElementById("detailsContainer");
+    detailsContainer.innerHTML = ""; // Clear existing details
+
+    const artistElement = document.createElement("p");
+    artistElement.innerText = `Artist: ${spotifyTrackData.artist}`;
+    detailsContainer.appendChild(artistElement);
+
+    const albumElement = document.createElement("p");
+    albumElement.innerText = `Album: ${spotifyTrackData.album}`;
+    detailsContainer.appendChild(albumElement);
+}
+
+// Function to submit the rating (will be updated later)
+function submitRating() {
+    // Placeholder code to indicate that the rating will be updated later
+    alert("Rating will be updated in the database. (Placeholder)");
+}
+
+function updateTemplateBasedOnCriteria(clickedItem) {
+    if (clickedItem.type === "artist") {
+        updateArtistTemplate();
+    } else if (clickedItem.type === "album") {
+        updateAlbumTemplate();
+    } else if (clickedItem.type === "track") {
+        updateTrackTemplate();
+    }
+}
+
+const example = {
+    type: "artist"
+}
+
+// Update the template with Spotify data when the page loads
+window.onload = updateTemplateBasedOnCriteria(example);
