@@ -7,6 +7,10 @@ header img {
     height: auto;
 }
 
+.logo {
+    width: 100px;
+    height: auto;
+}
 
 header {
     background-color: #333;
@@ -35,4 +39,43 @@ button {
 .media img {
     width: 200px;
     height: auto;
+}
+
+.site-title {
+    margin: 0 0 0 10px;
+    display: inline-block;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.media-title {
+    margin-top: 5px;
+}
+
+.details {
+    margin-top: 10px;
+}
+
+.detail {
+    margin: 5px 0;
+}
+
+.rating-container {
+    margin-top: 20px;
+}
+
+.rating-label {
+    margin-right: 10px;
+}
+
+.rating-input {
+    width: 50px;
+}
+
+.submit-button {
+    padding: 10px;
+    font-size: 16px;
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Artist - MuseDB</title>
+</head>
+<body>
+
+<!-- Page Header -->
+<header>
+    <img src="logo.png" alt="MuseDB Logo" class="logo">
+    <h1 class="site-title">MuseDB</h1>
+</header>
+
+<!-- Artist Template Content -->
+<div class="content">
+    <h2 class="page-title" id="pageTitle">Artist Template</h2>
+
+    <!-- Placeholder Content (Replace with API data) -->
+    <div class="media" id="mediaContainer">
+        <img src="placeholder.jpg" alt="Placeholder" class="media-image">
+        <p id="mediaTitle" class="media-title">Artist Name</p>
+    </div>
+
+    <div class="details" id="detailsContainer">
+        <!-- Add more details as needed -->
+    </div>
+
+    <!-- Rating Input -->
+    <div class="rating-container">
+        <label for="rating" class="rating-label">Rating (1-10):</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" class="rating-input">
+        <!-- Submit Button (will be updated later) -->
+        <button onclick="submitRating()" class="submit-button">Submit Rating</button>
+        <!-- Comment indicating the update will be implemented later -->
+        <!-- <p>Rating will be updated in the database.</p> -->
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
