@@ -2,7 +2,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from requests import post, get
 from yaml import safe_load
+from collections import OrderedDict
 import pandas as pd
+import csv
+
 
 app = FastAPI()
 
@@ -29,14 +32,29 @@ async def get_token():
         raise HTTPException(status_code=500, detail="Unable to get token from Spotify")
     return response.json()["access_token"]
 
-@app.post("/login")
+@app.get("/login")
 async def login(username: str, password: str):
-    if username == "admin" and password == "admin":
-        return {"username": username}
+    with open('../DB/users.csv', mode ='r') as file:    
+       csvFile = csv.DictReader(file)
+       for lines in csvFile:
+            if username == lines['username'] and password == lines['password']:
+                return {"username": username}
     return {"username": "unknown"}
 
-@app.post("/register")
+@app.get("/register")
 async def register(username: str, password: str):
+    with open('../DB/users.csv', mode ='r') as file:    
+       csvFile = csv.DictReader(file)
+       for lines in csvFile:
+            if username == lines['username']:
+                return {"username": "username taken"}
+    with open('../DB/users.csv', 'a', newline='') as file:  
+        # creating a csv writer object  
+        csvwriter = csv.writer(file)  
+        users = pd.read_csv("../DB/users.csv")
+        row = [str(len(users)), username, password]
+        # writing the fields 
+        csvwriter.writerow(row)
     return {"username": username, "password": password}
 
 @app.get("/search")
