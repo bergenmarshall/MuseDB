@@ -8,6 +8,7 @@
     - The final result should look something like this, with the Xs replaced with the client secret
 
     ![Alt text](setupYAML.png)
+- Rename the Setup_DB folder to just 'DB' to get a local DB
 - Run the command 'uvicorn main:app --reload' from the API directory
     - If this does not work, you may need to run 'python -m uvicorn main:app --reload'
 - The API should now be running. Look at the result of the uvicorn function to learn where, but it is usually 127.0.0.1:8000
