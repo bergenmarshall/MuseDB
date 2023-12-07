@@ -50,6 +50,8 @@ async def register(username: str, password: str):
 
 @app.get("/search")
 async def search(query: str, search_type: str):
+    query = query.replace(" ", "")
+    print(query, search_type)
     if search_type not in ['track', 'album', 'artist']:
         raise HTTPException(status_code=404, detail="Not a valid search type")
     access_token = await get_token()
