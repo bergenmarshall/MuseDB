@@ -60,17 +60,22 @@ async def search(query: str, search_type: str):
     if response.json()[search_type + "s"]["total"] == 0:
         raise HTTPException(status_code=404, detail="No results found")
     return_val = {}
+    position = 0
     if search_type == "track":
         for i in response.json()["tracks"]["items"]:
-            return_val[i["id"]] = {"name": i["name"], "artist": i["artists"][0]["name"], "album": i["album"]["name"] ,"image": i["album"]["images"][0]["url"]}
+            return_val[position] = {"id": i["id"],"name": i["name"], "artist": i["artists"][0]["name"], "album": i["album"]["name"] ,"image": i["album"]["images"][0]["url"]}
+            position += 1
     elif search_type == "album":
         for i in response.json()["albums"]["items"]:
-            return_val[i["id"]] = {"name": i["name"], "artist": i["artists"][0]["name"], "image": i["images"][0]["url"]}
+            return_val[position] = {"id":i["id"],"name": i["name"], "artist": i["artists"][0]["name"], "image": i["images"][0]["url"]}
+            position += 1
     elif search_type == "artist":
         for i in response.json()["artists"]["items"]:
-            if len(i["images"]) == 0:
-                continue
-            return_val[i["id"]] = {"name": i["name"], "image": i["images"][0]["url"]}
+            if i["images"] != []:
+                return_val[position] = {"id":i["id"],"name": i["name"], "image": i["images"][0]["url"]}
+            else:
+                return_val[position] = {"id":i["id"],"name": i["name"], "image": ""}
+            position += 1
     return return_val
 
 @app.post("/submit-review")

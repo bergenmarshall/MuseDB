@@ -147,13 +147,24 @@ function submitRating() {
     alert("Rating will be updated in the database. (Placeholder)");
 }
 
-let searchQuery = "";
+const url = '127.0.0.1:8000';
 
 function performSearch(category) {
-    // Get the search query from the input field
     searchQuery = document.getElementById("searchInput").value;
-
-    // call to api will similar to this callAPI(searchQuery, category)
+    const xhttpr = new XMLHttpRequest(); 
+    xhttpr.open('GET', 'http://' + url + '/search?query=' + searchQuery+ '&search_type=' + category, true);
+    xhttpr.send();
+    xhttpr.onload = ()=> { 
+        if (xhttpr.status === 200) { 
+            const response = JSON.parse(xhttpr.response);
+            for (let i = 0; i < Object.keys(response).length; i++) {
+                let obj = response[i];
+                console.log(obj);
+            }
+        } else { 
+            alert("Error with Retrieving " + category + " Data");
+        } 
+        };
 
     // Redirect to the placeholder search results page based on the category
     // Commented out because those pages dont exist yet.
