@@ -79,11 +79,13 @@ async def search(query: str, search_type: str):
     return return_val
 
 @app.post("/submit-review")
-async def submit_review(username: str, song_id: int, review_val: int):
+async def submit_review(username: str, music_id: int, rating: int, review_type: str):
+    if review_type not in ['track', 'album', 'artist']:
+        raise HTTPException(status_code=404, detail="Not a valid review type")
     if username not in users["username"].values:
         raise HTTPException(status_code=404, detail="User does not exist")
-    user_id = users[users["username"] == username]["userID"].values[0]
-    reviews.loc[len(reviews)] = [user_id, song_id, review_val]
+    user_id = users[users["username"] == username]["user_id"].values[0]
+    reviews.loc[len(reviews)] = [user_id, music_id, rating, review_type]
 
     reviews.to_csv('../DB/reviews.csv', index = False)
-    return {"username": username, "song_id": song_id, "review_val": review_val}
+    return {"msg": "success"}
