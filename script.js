@@ -43,7 +43,7 @@ function submitLoginForm() {
         if (response.msg == "incorrect username")
             {
                 attempt --;// Decrementing by one.
-                alert("incorrect username, You have"+attempt+" attempts left");
+                alert("incorrect username, You have" +attempt+" attempts left");
                 // Disabling fields after 3 attempts.
                 if( attempt == 0){
                 document.getElementById("username").disabled = true;
