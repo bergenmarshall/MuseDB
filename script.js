@@ -30,6 +30,8 @@ function submitLoginForm() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     
+
+    
     const xhttpr = new XMLHttpRequest(); 
     xhttpr.open('GET', 'http://127.0.0.1:8000/login?username='+ username + '&password='+ password, true); 
     
@@ -38,28 +40,51 @@ function submitLoginForm() {
     xhttpr.onload = ()=> { 
     if (xhttpr.status === 200) { 
         const response = JSON.parse(xhttpr.response); 
-        alert(response.username);
+        if (response.msg == "incorrect username")
+            {
+                attempt --;// Decrementing by one.
+                alert("incorrect username, You have"+attempt+" attempts left");
+                // Disabling fields after 3 attempts.
+                if( attempt == 0){
+                document.getElementById("username").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("submit").disabled = true;
+                return false;
+                } 
+            } else if (response.msg == "incorrect password")
+            {
+                attempt --;// Decrementing by one.
+                alert("incorrect password, You have"+attempt+" attempts left");
+                // Disabling fields after 3 attempts.
+                if( attempt == 0){
+                document.getElementById("username").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("submit").disabled = true;
+                return false;
+                }
+            } else {
+                alert("login successful, user: " + response.username)
+                localStorage.setItem("username", response.username);
+            }
+            
     } else { 
-        // Handle error 
+        alert("error");
     } 
     }; 
 
-        // attempt --;// Decrementing by one.
-        // alert("You have left "+attempt+" attempt;");
-        // // Disabling fields after 3 attempts.
-        // if( attempt == 0){
-        // document.getElementById("username").disabled = true;
-        // document.getElementById("password").disabled = true;
-        // document.getElementById("submit").disabled = true;
-        // return false;
-        // }
+        
         
 }
 
 function submitRegistrationForm() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password != confirmPassword){
+        alert("Passwords do not match");
+        return false;
+    }
     const xhttpr = new XMLHttpRequest(); 
     xhttpr.open('GET', 'http://127.0.0.1:8000/register?username='+ username + '&password='+ password, true); 
     
@@ -68,9 +93,9 @@ function submitRegistrationForm() {
     xhttpr.onload = ()=> { 
     if (xhttpr.status === 200) { 
         const response = JSON.parse(xhttpr.response); 
-        alert(response.username);
+        alert(response.msg);
     } else { 
-        // Handle error 
+        alert("error"); 
     } 
     }; 
 }
@@ -174,11 +199,12 @@ function updateSearchResultsAlbums(results) {
         imgElement.alt = results[i]["name"];
         nameElement.innerText = results[i]["name"];
         artistElement.innerText = results[i]["artist"];
+
     }
 }
 
 // Function to update search results for songs
-function updateSearchResultsSongs(results) {
+function updateSearchResultsTracks(results) {
     for (let i = 0; i < Object.keys(results).length; i++) {
         const entryElement = document.getElementById(`entry${i + 1}`);
         const imgElement = entryElement.querySelector("img");
@@ -196,7 +222,7 @@ function updateSearchResultsSongs(results) {
 
 const url = '127.0.0.1:8000';
 
-let query = "";
+
 
 function redirectToSearchResults(category) {
     query = document.getElementById("searchInput").value;
@@ -205,6 +231,7 @@ function redirectToSearchResults(category) {
 
 function performSearch(category) {
     const xhttpr = new XMLHttpRequest(); 
+    var query = document.getElementById("searchInput").value;
     xhttpr.open('GET', 'http://' + url + '/search?query=' + query + '&search_type=' + category, true);
     xhttpr.send();
     xhttpr.onload = ()=> { 
@@ -214,19 +241,28 @@ function performSearch(category) {
                 let obj = response[i];
                 console.log(obj);
             }
+            if (category === "album") {
+                updateSearchResultsAlbums(response);
+                var x = document.getElementById("results1");
+                x.style.display = "block";
+                
+            }
+            else if (category === "track") {
+                updateSearchResultsTracks(response);
+                var x = document.getElementById("results1");
+                x.style.display = "block";
+            }
+            else if (category === "artist") {
+                updateSearchResultsArtists(response);
+                var x = document.getElementById("results1");
+                x.style.display = "block";
+            }
+
         } else { 
             alert("Error with Retrieving " + category + " Data");
         } 
         };
 
-    if (category === "album") {
-        updateSearchResultsAlbums(response);
-    }
-    else if (category === "track") {
-        updateSearchResultsTracks(response);
-    }
-    else if (category === "artist") {
-        updateSearchResultsArtists(response);
-    }
+
 
 }

@@ -91,3 +91,15 @@ button {
     height: 36px;
     padding: 8px;
 }
+
+.resultimg {
+    width: 160px;
+    height: 160px;
+}
+
+.results { 
+    display: none; 
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+} 
