@@ -79,6 +79,7 @@ let spotifyArtistData = {
     type: "artist",
     name: "Stevie Wonder",
     imageUrl: "stevie_wonder.jpg",
+    id: "",
 };
 
 let spotifyAlbumData = {
@@ -86,6 +87,7 @@ let spotifyAlbumData = {
     name: "Songs In The Key Of Life",
     imageUrl: "Stevie_Songs_In_The_Key_Of_Life.jpg",
     artist: "Stevie Wonder",
+    id: "",
 };
 
 let spotifyTrackData = {
@@ -94,6 +96,7 @@ let spotifyTrackData = {
     imageUrl: "Stevie_Songs_In_The_Key_Of_Life.jpg",
     artist: "Stevie Wonder",
     album: "Songs In The Key of Life",
+    id: "",
 };
 
 
@@ -147,6 +150,50 @@ function submitRating() {
     alert("Rating will be updated in the database. (Placeholder)");
 }
 
+function updateSearchResultsArtists(results) {
+    for (let i = 0; i < Object.keys(results).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const pElement = entryElement.querySelector("p");
+
+        imgElement.src = results[i]["image"];
+        imgElement.alt = results[i]["name"];
+        pElement.innerText = results[i]["name"];
+    }
+}
+
+// Function to update search results for albums
+function updateSearchResultsAlbums(results) {
+    for (let i = 0; i < Object.keys(results).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const nameElement = entryElement.querySelector("p:nth-child(2)");
+        const artistElement = entryElement.querySelector("p:nth-child(3)");
+
+        imgElement.src = results[i]["image"];
+        imgElement.alt = results[i]["name"];
+        nameElement.innerText = results[i]["name"];
+        artistElement.innerText = results[i]["artist"];
+    }
+}
+
+// Function to update search results for songs
+function updateSearchResultsSongs(results) {
+    for (let i = 0; i < Object.keys(results).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const nameElement = entryElement.querySelector("p:nth-child(2)");
+        const artistElement = entryElement.querySelector("p:nth-child(3)");
+        const albumElement = entryElement.querySelector("p:nth-child(4)");
+
+        imgElement.src = results[i]["image"];
+        imgElement.alt = results[i]["name"];
+        nameElement.innerText = results[i]["name"];
+        artistElement.innerText = results[i]["artist"];
+        albumElement.innerText = results[i]["album"];
+    }
+}
+
 const url = '127.0.0.1:8000';
 
 function performSearch(category) {
@@ -165,6 +212,19 @@ function performSearch(category) {
             alert("Error with Retrieving " + category + " Data");
         } 
         };
+
+    if (category === "album") {
+        window.location.href = `search-results-albums.html`;
+        updateSearchResultsAlbums(response);
+    }
+    else if (category === "track") {
+        window.location.href = `search-results-tracks.html`;
+        updateSearchResultsTracks(response);
+    }
+    else if (category === "artist") {
+        window.location.href = `search-results-artists.html`;
+        updateSearchResultsArtists(response);
+    }
 
     // Redirect to the placeholder search results page based on the category
     // Commented out because those pages dont exist yet.
