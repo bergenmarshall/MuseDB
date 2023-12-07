@@ -82,10 +82,12 @@ button {
 
 .search-container {
     display: flex;
+    height: 40px;
     align-items: center;
 }
 
 #searchInput {
-    flex: 1; /* Use remaining space */
-    padding: 8px; /* Add padding for better aesthetics */
+    flex: 1;
+    height: 36px;
+    padding: 8px;
 }
