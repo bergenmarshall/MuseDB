@@ -1,3 +1,2 @@
 *.yml
 __pycache__/
-*.csv
