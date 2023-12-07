@@ -196,10 +196,16 @@ function updateSearchResultsSongs(results) {
 
 const url = '127.0.0.1:8000';
 
+let query = "";
+
+function redirectToSearchResults(category) {
+    query = document.getElementById("searchInput").value;
+    window.location.href = `search-results-${category}.html`;
+}
+
 function performSearch(category) {
-    searchQuery = document.getElementById("searchInput").value;
     const xhttpr = new XMLHttpRequest(); 
-    xhttpr.open('GET', 'http://' + url + '/search?query=' + searchQuery+ '&search_type=' + category, true);
+    xhttpr.open('GET', 'http://' + url + '/search?query=' + query + '&search_type=' + category, true);
     xhttpr.send();
     xhttpr.onload = ()=> { 
         if (xhttpr.status === 200) { 
@@ -214,19 +220,13 @@ function performSearch(category) {
         };
 
     if (category === "album") {
-        window.location.href = `search-results-albums.html`;
         updateSearchResultsAlbums(response);
     }
     else if (category === "track") {
-        window.location.href = `search-results-tracks.html`;
         updateSearchResultsTracks(response);
     }
     else if (category === "artist") {
-        window.location.href = `search-results-artists.html`;
         updateSearchResultsArtists(response);
     }
 
-    // Redirect to the placeholder search results page based on the category
-    // Commented out because those pages dont exist yet.
-    //window.location.href = `search-results-${category}.html`;
 }
