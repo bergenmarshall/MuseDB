@@ -14,6 +14,14 @@ function redirectToHome() {
     window.location.href = 'index.html';
 }
 
+function redirectToSearch() {
+    window.location.href = 'search.html';
+}
+
+function redirectToSearchByType(category) {
+    window.location.href = `search-${category}.html`;
+}
+
 var attempt = 3;
 
 
@@ -137,4 +145,17 @@ function updateArtistTemplate() {
 function submitRating() {
     // Placeholder code to indicate that the rating will be updated later
     alert("Rating will be updated in the database. (Placeholder)");
+}
+
+let searchQuery = "";
+
+function performSearch(category) {
+    // Get the search query from the input field
+    searchQuery = document.getElementById("searchInput").value;
+
+    // call to api will similar to this callAPI(searchQuery, category)
+
+    // Redirect to the placeholder search results page based on the category
+    // Commented out because those pages dont exist yet.
+    //window.location.href = `search-results-${category}.html`;
 }
