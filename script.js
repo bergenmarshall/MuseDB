@@ -237,15 +237,10 @@ function performSearch(category) {
     xhttpr.onload = ()=> { 
         if (xhttpr.status === 200) { 
             const response = JSON.parse(xhttpr.response);
-            for (let i = 0; i < Object.keys(response).length; i++) {
-                let obj = response[i];
-                console.log(obj);
-            }
             if (category === "album") {
                 updateSearchResultsAlbums(response);
                 var x = document.getElementById("results1");
                 x.style.display = "block";
-                
             }
             else if (category === "track") {
                 updateSearchResultsTracks(response);
