@@ -2,9 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from requests import post, get
 from yaml import safe_load
-from collections import OrderedDict
 import pandas as pd
-import csv
 
 
 app = FastAPI()
@@ -34,28 +32,21 @@ async def get_token():
 
 @app.get("/login")
 async def login(username: str, password: str):
-    with open('../DB/users.csv', mode ='r') as file:    
-       csvFile = csv.DictReader(file)
-       for lines in csvFile:
-            if username == lines['username'] and password == lines['password']:
-                return {"username": username}
-    return {"username": "unknown"}
+    if username not in users["username"].values:
+        return {"msg": "incorrect username"}
+    elif password != users[users["username"] == username]["password"].values[0]:
+        return {"msg": "incorrect password"}
+    else:
+        return {"username": username}
 
 @app.get("/register")
 async def register(username: str, password: str):
-    with open('../DB/users.csv', mode ='r') as file:    
-       csvFile = csv.DictReader(file)
-       for lines in csvFile:
-            if username == lines['username']:
-                return {"username": "username taken"}
-    with open('../DB/users.csv', 'a', newline='') as file:  
-        # creating a csv writer object  
-        csvwriter = csv.writer(file)  
-        users = pd.read_csv("../DB/users.csv")
-        row = [str(len(users)), username, password]
-        # writing the fields 
-        csvwriter.writerow(row)
-    return {"username": username, "password": password}
+    if username in users["username"].values:
+        return {"msg": "username already exists"}
+    else:
+        users.loc[len(users)] = [len(users), username, password]
+        users.to_csv('../DB/users.csv', index = False)
+        return {"msg": "success"}
 
 @app.get("/search")
 async def search(query: str, search_type: str):
@@ -80,6 +71,8 @@ async def search(query: str, search_type: str):
 
 @app.post("/submit-review")
 async def submit_review(username: str, song_id: int, review_val: int):
+    if username not in users["username"].values:
+        raise HTTPException(status_code=404, detail="User does not exist")
     user_id = users[users["username"] == username]["userID"].values[0]
     reviews.loc[len(reviews)] = [user_id, song_id, review_val]
 
