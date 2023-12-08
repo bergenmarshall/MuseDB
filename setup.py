@@ -27,7 +27,6 @@ if not os.path.exists(config_directory):
     print("config.yml created")
 else:
     print("config.yml already exists, skipping creation")
-print("Setup complete, please add CLIENT_SECRET to config.yml if you haven't already then re-run this script")
 
 os.chdir("API") # start API
 print("API starting. Navigate to http://127.0.0.1:8000/docs to view endpoints running\n")
