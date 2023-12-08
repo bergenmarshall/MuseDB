@@ -222,13 +222,6 @@ function updateSearchResultsTracks(results) {
 
 const url = '127.0.0.1:8000';
 
-
-
-function redirectToSearchResults(category) {
-    query = document.getElementById("searchInput").value;
-    window.location.href = `search-results-${category}.html`;
-}
-
 function performSearch(category) {
     const xhttpr = new XMLHttpRequest(); 
     var query = document.getElementById("searchInput").value;
@@ -257,7 +250,98 @@ function performSearch(category) {
             alert("Error with Retrieving " + category + " Data");
         } 
         };
+}
 
+function redirectToTrack( numClicked ) {
+    const entryElement = document.getElementById(`entry${numClicked}`);
+    const imgElement = entryElement.querySelector("img");
+    const nameElement = entryElement.querySelector("p:nth-child(2)");
+    const artistElement = entryElement.querySelector("p:nth-child(3)");
+    const albumElement = entryElement.querySelector("p:nth-child(4)");
 
+    spotifyTrackData.name = nameElement.innerText;
+    spotifyTrackData.album = albumElement.innerText;
+    spotifyTrackData.artist = artistElement.innerText;
+    spotifyTrackData.imageUrl = imgElement.src;
 
+    localStorage.setItem('spotifyTrackData', JSON.stringify(spotifyTrackData));
+
+    window.location.href = 'track.html';
+}
+
+function redirectToAlbum( numClicked ) {
+    const entryElement = document.getElementById(`entry${numClicked}`);
+    const imgElement = entryElement.querySelector("img");
+    const nameElement = entryElement.querySelector("p:nth-child(2)");
+    const artistElement = entryElement.querySelector("p:nth-child(3)");
+
+    spotifyTrackData.name = nameElement.innerText;
+    spotifyTrackData.album = albumElement.innerText;
+    spotifyTrackData.artist = artistElement.innerText;
+    spotifyTrackData.imageUrl = imgElement.src;
+
+    localStorage.setItem('spotifyAlbumData', JSON.stringify(spotifyAlbumData));
+
+    window.location.href = 'album.html';
+}
+
+function redirectToArtist( numClicked ) {
+    const entryElement = document.getElementById(`entry${numClicked}`);
+    const imgElement = entryElement.querySelector("img");
+    const pElement = entryElement.querySelector("p");
+
+    spotifyArtistData.name = pElement.innerText;
+    spotifyArtistData.imageUrl = imgElement.src;
+
+    localStorage.setItem('spotifyArtistData', JSON.stringify(spotifyArtistData));
+
+    window.location.href = 'artist.html';
+}
+
+function readFromLocalStorageTrack() {
+    const storedData = localStorage.getItem('spotifyTrackData');
+
+    if (storedData) {
+        // Parse the stored data and use it as needed
+        const parsedData = JSON.parse(storedData);
+
+        // Example: Log the data
+        console.log('Data retrieved from localStorage:', parsedData);
+
+        // You can use parsedData in your application as needed
+    } else {
+        console.log('No data found in localStorage.');
+    }
+}
+
+function readFromLocalStorageArtist() {
+    const storedData = localStorage.getItem('spotifyArtistData');
+
+    if (storedData) {
+        // Parse the stored data and use it as needed
+        const parsedData = JSON.parse(storedData);
+
+        // Example: Log the data
+        console.log('Data retrieved from localStorage:', parsedData);
+
+        // You can use parsedData in your application as needed
+    } else {
+        console.log('No data found in localStorage.');
+    }
+}
+
+function readFromLocalStorageAlbum() {
+    const storedData = localStorage.getItem('spotifyAlbumData');
+
+    if (storedData) {
+        // Parse the stored data and use it as needed
+        const parsedData = JSON.parse(storedData);
+
+        // Example: Log the data
+        console.log('Data retrieved from localStorage:', parsedData);
+
+        // You can use parsedData in your application as needed
+    } else {
+        console.log('No data found in localStorage.');
+    }
 }
