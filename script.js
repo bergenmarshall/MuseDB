@@ -275,10 +275,9 @@ function redirectToAlbum( numClicked ) {
     const nameElement = entryElement.querySelector("p:nth-child(2)");
     const artistElement = entryElement.querySelector("p:nth-child(3)");
 
-    spotifyTrackData.name = nameElement.innerText;
-    spotifyTrackData.album = albumElement.innerText;
-    spotifyTrackData.artist = artistElement.innerText;
-    spotifyTrackData.imageUrl = imgElement.src;
+    spotifyAlbumData.name = nameElement.innerText;
+    spotifyAlbumData.artist = artistElement.innerText;
+    spotifyAlbumData.imageUrl = imgElement.src;
 
     localStorage.setItem('spotifyAlbumData', JSON.stringify(spotifyAlbumData));
 
@@ -308,9 +307,13 @@ function readFromLocalStorageTrack() {
         // Example: Log the data
         console.log('Data retrieved from localStorage:', parsedData);
 
-        // You can use parsedData in your application as needed
+        spotifyTrackData.album = parsedData.album;
+        spotifyTrackData.artist = parsedData.artist;
+        spotifyTrackData.imageUrl = parsedData.imageUrl;
+        spotifyTrackData.name = parsedData.name;
+        updateTrackTemplate();
     } else {
-        console.log('No data found in localStorage.');
+        alert('No data found in localStorage.');
     }
 }
 
@@ -324,9 +327,11 @@ function readFromLocalStorageArtist() {
         // Example: Log the data
         console.log('Data retrieved from localStorage:', parsedData);
 
-        // You can use parsedData in your application as needed
+        spotifyArtistData.name = parsedData.name;
+        spotifyArtistData.imageUrl = parsedData.imageUrl;
+        updateArtistTemplate();
     } else {
-        console.log('No data found in localStorage.');
+        alert('No data found in localStorage.');
     }
 }
 
@@ -340,8 +345,11 @@ function readFromLocalStorageAlbum() {
         // Example: Log the data
         console.log('Data retrieved from localStorage:', parsedData);
 
-        // You can use parsedData in your application as needed
+        spotifyAlbumData.artist = parsedData.artist;
+        spotifyAlbumData.imageUrl = parsedData.imageUrl;
+        spotifyAlbumData.name = parsedData.name;
+        updateAlbumTemplate();        
     } else {
-        console.log('No data found in localStorage.');
+        alert('No data found in localStorage.');
     }
 }
