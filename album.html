@@ -10,8 +10,8 @@
 
 <!-- Page Header -->
 <header>
-    <img src="logo.png" alt="MuseDB Logo" class="logo" onclick="redirectToHome()">
-    <h1 class="site-title">MuseDB</h1>
+    <img src="logo.png" alt="MuseDB Logo" onclick="redirectToHome()">
+    <h1>MuseDB</h1>
 </header>
 
 <!-- Album Template Content -->
@@ -19,24 +19,25 @@
     <h2 class="page-title" id="pageTitle">Album Template</h2>
 
     <!-- Placeholder Content (Replace with API data) -->
-    <div class="media" id="mediaContainer">
+    <div class="center" id="mediaContainer">
+        
         <img src="placeholder.jpg" alt="Placeholder" class="media-image" style="width:100%">
         <p id="mediaTitle" class="media-title">Album Name</p>
-    </div>
 
-    <div class="details" id="detailsContainer">
-        <!-- Add more details as needed -->
-        <p id="artistDetail" class="detail">Artist: Album Artist</p>
-    </div>
+        <div class="details" id="detailsContainer">
+            <!-- Add more details as needed -->
+            <p id="artistDetail" class="detail">Artist: Album Artist</p>
+        </div>
 
-    <!-- Rating Input -->
-    <div class="rating-container">
-        <label for="rating" class="rating-label">Rating (1-10):</label>
-        <input type="number" id="rating" name="rating" min="1" max="10" class="rating-input">
-        <!-- Submit Button (will be updated later) -->
-        <button onclick="submitRating()" class="submit-button">Submit Rating</button>
-        <!-- Comment indicating the update will be implemented later -->
-        <!-- <p>Rating will be updated in the database.</p> -->
+        <!-- Rating Input -->
+        <div class="rating-container">
+            <label for="rating" class="rating-label">Rating (1-10):</label>
+            <input type="number" id="rating" name="rating" min="1" max="10" class="rating-input">
+            <!-- Submit Button (will be updated later) -->
+            <button onclick="submitRating()" class="submit-button">Submit Rating</button>
+            <!-- Comment indicating the update will be implemented later -->
+            <!-- <p>Rating will be updated in the database.</p> -->
+        </div>
     </div>
 </div>
 

@@ -21,6 +21,7 @@ header {
     padding: 10px;
 }
 
+
 .content {
     max-width: 1000px;
     margin: 20px auto;
@@ -37,6 +38,17 @@ button {
     padding: 10px;
     font-size: 16px;
 }
+
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 360pt;
+    left: 50%;
+    width: 12%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 
 * {
     box-sizing: border-box;
