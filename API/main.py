@@ -79,7 +79,7 @@ async def search(query: str, search_type: str):
     return return_val
 
 @app.post("/submit-review")
-async def submit_review(username: str, music_id: int, rating: int, review_type: str):
+async def submit_review(username: str, music_id: str, rating: int, review_type: str):
     if review_type not in ['track', 'album', 'artist']:
         raise HTTPException(status_code=404, detail="Not a valid review type")
     if username not in users["username"].values:
@@ -89,3 +89,31 @@ async def submit_review(username: str, music_id: int, rating: int, review_type: 
 
     reviews.to_csv('../DB/reviews.csv', index = False)
     return {"msg": "success"}
+
+@app.get("/get-top-reviews")
+async def get_top_reviews(review_type: str):
+    if review_type not in ['track', 'album', 'artist']:
+        raise HTTPException(status_code=404, detail="Not a valid review type")
+    return_val = {}
+    position = 0
+    filtered_reviews = reviews[reviews["review_type"] == review_type].groupby("music_id").mean(numeric_only=True).sort_values("rating", ascending=False).head(5)
+    if len(filtered_reviews) == 0:
+        raise HTTPException(status_code=404, detail="No reviews found")
+    
+    access_token = await get_token()
+    for i in filtered_reviews.index:
+        response = get(f"https://api.spotify.com/v1/{review_type}s/{i}", headers={"Authorization": f"Bearer {access_token})"})
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Unable to get search results")
+        if review_type == "track":
+            return_val[position] = {"id": i, "name": response.json()["name"], "artist": response.json()["artists"][0]["name"], "album": response.json()["album"]["name"] ,"image": response.json()["album"]["images"][0]["url"], "rating": filtered_reviews.loc[i]["rating"]}
+        elif review_type == "album":
+            return_val[position] = {"id": i, "name": response.json()["name"], "artist": response.json()["artists"][0]["name"], "image": response.json()["images"][0]["url"], "rating": filtered_reviews.loc[i]["rating"]}
+        elif review_type == "artist":
+            if response.json()["images"] != []:
+                return_val[position] = {"id": i, "name": response.json()["name"], "image": response.json()["images"][0]["url"], "rating": filtered_reviews.loc[i]["rating"]}
+            else:
+                return_val[position] = {"id": i, "name": response.json()["name"], "image": "", "rating": filtered_reviews.loc[i]["rating"]}
+        position += 1
+    return return_val
+    
