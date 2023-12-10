@@ -183,7 +183,7 @@ function submitRating(category) {
         ratingData = spotifyAlbumData;
     }
 
-    const ratingValue = document.getElementById('rating').value.trim();
+    const ratingValue = parseInt(document.getElementById('rating').value.trim());
 
     if(ratingValue === ""){
         alert('Please enter a rating before submitting.');
