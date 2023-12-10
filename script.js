@@ -189,6 +189,10 @@ function submitRating(category) {
         alert('Please enter a rating before submitting.');
         return;
     }
+    else if(ratingValue < 1 || ratingValue > 10){
+        alert("Please leave a rating from 1-10!");
+        return;
+    }
     username = sessionStorage.getItem("username");
     if (username) {
         continue;
