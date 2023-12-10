@@ -183,12 +183,13 @@ function submitRating(category) {
         ratingData = spotifyAlbumData;
     }
 
-    const ratingValue = document.getElementById('rating').value.trim();
+    const ratingValue = parseInt(document.getElementById('rating').value.trim(), 10);
 
-    if(ratingValue === ""){
-        alert('Please enter a rating before submitting.');
+    if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 10) {
+        alert('Please enter a valid rating between 1 and 10.');
         return;
     }
+
     username = sessionStorage.getItem("username");
     console.log(ratingData.name + " " + ratingValue + " " + username);
     const xhttpr = new XMLHttpRequest();
