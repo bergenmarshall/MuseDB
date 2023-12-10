@@ -190,6 +190,13 @@ function submitRating(category) {
         return;
     }
     username = sessionStorage.getItem("username");
+    if (username) {
+        continue;
+    }
+    else {
+        alert('Please log in/register to leave a rating.');
+        return;
+    }
     console.log(ratingData.name + " " + ratingValue + " " + username);
     const xhttpr = new XMLHttpRequest();
     xhttpr.open('POST', 'http://' + url + '/submit-review?username='+ username + '&music_id='+ ratingData.id + '&rating='+ ratingValue +'&review_type=' + category, true);
