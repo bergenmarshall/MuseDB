@@ -191,11 +191,9 @@ function submitRating(category) {
     }
     username = sessionStorage.getItem("username");
     if (username) {
-        continue;
     }
     else {
-        alert('Please log in/register to leave a rating.');
-        return;
+        alert('Please log in/register to leave a rating.')
     }
     console.log(ratingData.name + " " + ratingValue + " " + username);
     const xhttpr = new XMLHttpRequest();
