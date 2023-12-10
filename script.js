@@ -192,7 +192,7 @@ function submitRating(category) {
 
     username = sessionStorage.getItem("username");
 
-    if(username = ""){
+    if(username){
     }
     else{
         alert("You must be logged in to leave a rating!");
