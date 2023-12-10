@@ -23,6 +23,7 @@ function redirectToSearchByType(category) {
 }
 
 var attempt = 3;
+const url = '127.0.0.1:8000';
 
 
 function submitLoginForm() {
@@ -33,7 +34,7 @@ function submitLoginForm() {
 
     
     const xhttpr = new XMLHttpRequest(); 
-    xhttpr.open('GET', 'http://127.0.0.1:8000/login?username='+ username + '&password='+ password, true); 
+    xhttpr.open('GET', 'http://' + url + '/login?username='+ username + '&password='+ password, true); 
     
     xhttpr.send(); 
     
@@ -86,7 +87,7 @@ function submitRegistrationForm() {
         return false;
     }
     const xhttpr = new XMLHttpRequest(); 
-    xhttpr.open('POST', 'http://127.0.0.1:8000/register?username='+ username + '&password='+ password, true); 
+    xhttpr.open('POST', 'http://' + url + '/register?username='+ username + '&password='+ password, true); 
     
     xhttpr.send(); 
     
@@ -171,15 +172,15 @@ function updateArtistTemplate() {
 
 // Function to submit the rating (will be updated later)
 function submitRating(category) {
-
+    let ratingData = {};
     if(category === "artist") {
-        let ratingData = spotifyArtistData;
+        ratingData = spotifyArtistData;
     }
     else if(category === "track") {
-        let ratingData = spotifyTrackData;
+        ratingData = spotifyTrackData;
     }
     else if(category === "album") {
-        let ratingData = spotifyAlbumData;
+        ratingData = spotifyAlbumData;
     }
 
     const ratingValue = document.getElementById('rating').value.trim();
@@ -188,9 +189,19 @@ function submitRating(category) {
         alert('Please enter a rating before submitting.');
         return;
     }
-
-    // Placeholder code to indicate that the rating will be updated later
-    alert("Rating will be updated in the database. (Placeholder)");
+    username = sessionStorage.getItem("username");
+    console.log(ratingData.name + " " + ratingValue + " " + username);
+    const xhttpr = new XMLHttpRequest();
+    xhttpr.open('POST', 'http://' + url + '/submit-review?username='+ username + '&music_id='+ ratingData.id + '&rating='+ ratingValue +'&review_type=' + category, true);
+    xhttpr.send();
+    xhttpr.onload = ()=> {
+        if (xhttpr.status === 200) {
+            const response = JSON.parse(xhttpr.response);
+            alert(response.msg);
+        } else {
+            alert("error");
+        }
+    };
 }
 
 let IDs = ['', '', '', '', ''];
@@ -245,8 +256,6 @@ function updateSearchResultsTracks(results) {
         albumElement.innerText = results[i]["album"];
     }
 }
-
-const url = '127.0.0.1:8000';
 
 function performSearch(category) {
     const xhttpr = new XMLHttpRequest(); 
