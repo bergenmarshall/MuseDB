@@ -170,16 +170,38 @@ function updateArtistTemplate() {
 }
 
 // Function to submit the rating (will be updated later)
-function submitRating() {
+function submitRating(category) {
+
+    if(category === "artist") {
+        let ratingData = spotifyArtistData;
+    }
+    else if(category === "track") {
+        let ratingData = spotifyTrackData;
+    }
+    else if(category === "album") {
+        let ratingData = spotifyAlbumData;
+    }
+
+    const ratingValue = document.getElementById('rating').value.trim();
+
+    if(ratingValue === ""){
+        alert('Please enter a rating before submitting.');
+        return;
+    }
+
     // Placeholder code to indicate that the rating will be updated later
     alert("Rating will be updated in the database. (Placeholder)");
 }
+
+let IDs = ['', '', '', '', ''];
 
 function updateSearchResultsArtists(results) {
     for (let i = 0; i < Object.keys(results).length; i++) {
         const entryElement = document.getElementById(`entry${i + 1}`);
         const imgElement = entryElement.querySelector("img");
         const pElement = entryElement.querySelector("p");
+
+        IDs[i] = results[i]['id'];
 
         imgElement.src = results[i]["image"];
         imgElement.alt = results[i]["name"];
@@ -194,6 +216,8 @@ function updateSearchResultsAlbums(results) {
         const imgElement = entryElement.querySelector("img");
         const nameElement = entryElement.querySelector("p:nth-child(2)");
         const artistElement = entryElement.querySelector("p:nth-child(3)");
+
+        IDs[i] = results[i]['id'];
 
         imgElement.src = results[i]["image"];
         imgElement.alt = results[i]["name"];
@@ -211,6 +235,8 @@ function updateSearchResultsTracks(results) {
         const nameElement = entryElement.querySelector("p:nth-child(2)");
         const artistElement = entryElement.querySelector("p:nth-child(3)");
         const albumElement = entryElement.querySelector("p:nth-child(4)");
+
+        IDs[i] = results[i]['id'];
 
         imgElement.src = results[i]["image"];
         imgElement.alt = results[i]["name"];
@@ -263,6 +289,7 @@ function redirectToTrack( numClicked ) {
     spotifyTrackData.album = albumElement.innerText;
     spotifyTrackData.artist = artistElement.innerText;
     spotifyTrackData.imageUrl = imgElement.src;
+    spotifyTrackData.id = IDs[numClicked - 1];
 
     sessionStorage.setItem('spotifyTrackData', JSON.stringify(spotifyTrackData));
 
@@ -278,6 +305,7 @@ function redirectToAlbum( numClicked ) {
     spotifyAlbumData.name = nameElement.innerText;
     spotifyAlbumData.artist = artistElement.innerText;
     spotifyAlbumData.imageUrl = imgElement.src;
+    spotifyAlbumData.id = IDs[numClicked - 1];
 
     sessionStorage.setItem('spotifyAlbumData', JSON.stringify(spotifyAlbumData));
     window.location.href = 'album.html';
@@ -290,6 +318,7 @@ function redirectToArtist( numClicked ) {
 
     spotifyArtistData.name = pElement.innerText;
     spotifyArtistData.imageUrl = imgElement.src;
+    spotifyArtistData.id = IDs[numClicked - 1];
 
     sessionStorage.setItem('spotifyArtistData', JSON.stringify(spotifyArtistData));
 
@@ -310,6 +339,7 @@ function readFromLocalStorageTrack() {
         spotifyTrackData.artist = parsedData.artist;
         spotifyTrackData.imageUrl = parsedData.imageUrl;
         spotifyTrackData.name = parsedData.name;
+        spotifyTrackData.id = parsedData.id;
         updateTrackTemplate();
     } else {
         alert('No data found in sessionStorage.');
@@ -328,6 +358,7 @@ function readFromLocalStorageArtist() {
 
         spotifyArtistData.name = parsedData.name;
         spotifyArtistData.imageUrl = parsedData.imageUrl;
+        spotifyArtistData.id = parsedData.id;
         updateArtistTemplate();
     } else {
         alert('No data found in sessionStorage.');
@@ -347,6 +378,7 @@ function readFromLocalStorageAlbum() {
         spotifyAlbumData.artist = parsedData.artist;
         spotifyAlbumData.imageUrl = parsedData.imageUrl;
         spotifyAlbumData.name = parsedData.name;
+        spotifyAlbumData.id = parsedData.id;
         updateAlbumTemplate();        
     } else {
         alert('No data found in sessionStorage.');
