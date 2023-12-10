@@ -64,7 +64,7 @@ function submitLoginForm() {
                 }
             } else {
                 alert("login successful, user: " + response.username)
-                localStorage.setItem("username", response.username);
+                sessionStorage.setItem("username", response.username);
             }
             
     } else { 
@@ -264,7 +264,7 @@ function redirectToTrack( numClicked ) {
     spotifyTrackData.artist = artistElement.innerText;
     spotifyTrackData.imageUrl = imgElement.src;
 
-    localStorage.setItem('spotifyTrackData', JSON.stringify(spotifyTrackData));
+    sessionStorage.setItem('spotifyTrackData', JSON.stringify(spotifyTrackData));
 
     window.location.href = 'track.html';
 }
@@ -279,8 +279,7 @@ function redirectToAlbum( numClicked ) {
     spotifyAlbumData.artist = artistElement.innerText;
     spotifyAlbumData.imageUrl = imgElement.src;
 
-    localStorage.setItem('spotifyAlbumData', JSON.stringify(spotifyAlbumData));
-
+    sessionStorage.setItem('spotifyAlbumData', JSON.stringify(spotifyAlbumData));
     window.location.href = 'album.html';
 }
 
@@ -292,13 +291,13 @@ function redirectToArtist( numClicked ) {
     spotifyArtistData.name = pElement.innerText;
     spotifyArtistData.imageUrl = imgElement.src;
 
-    localStorage.setItem('spotifyArtistData', JSON.stringify(spotifyArtistData));
+    sessionStorage.setItem('spotifyArtistData', JSON.stringify(spotifyArtistData));
 
     window.location.href = 'artist.html';
 }
 
 function readFromLocalStorageTrack() {
-    const storedData = localStorage.getItem('spotifyTrackData');
+    const storedData = sessionStorage.getItem('spotifyTrackData');
 
     if (storedData) {
         // Parse the stored data and use it as needed
@@ -313,12 +312,12 @@ function readFromLocalStorageTrack() {
         spotifyTrackData.name = parsedData.name;
         updateTrackTemplate();
     } else {
-        alert('No data found in localStorage.');
+        alert('No data found in sessionStorage.');
     }
 }
 
 function readFromLocalStorageArtist() {
-    const storedData = localStorage.getItem('spotifyArtistData');
+    const storedData = sessionStorage.getItem('spotifyArtistData');
 
     if (storedData) {
         // Parse the stored data and use it as needed
@@ -331,25 +330,25 @@ function readFromLocalStorageArtist() {
         spotifyArtistData.imageUrl = parsedData.imageUrl;
         updateArtistTemplate();
     } else {
-        alert('No data found in localStorage.');
+        alert('No data found in sessionStorage.');
     }
 }
 
 function readFromLocalStorageAlbum() {
-    const storedData = localStorage.getItem('spotifyAlbumData');
+    const storedData = sessionStorage.getItem('spotifyAlbumData');
 
     if (storedData) {
         // Parse the stored data and use it as needed
         const parsedData = JSON.parse(storedData);
 
         // Example: Log the data
-        console.log('Data retrieved from localStorage:', parsedData);
+        console.log('Data retrieved from sessionStorage:', parsedData);
 
         spotifyAlbumData.artist = parsedData.artist;
         spotifyAlbumData.imageUrl = parsedData.imageUrl;
         spotifyAlbumData.name = parsedData.name;
         updateAlbumTemplate();        
     } else {
-        alert('No data found in localStorage.');
+        alert('No data found in sessionStorage.');
     }
 }
