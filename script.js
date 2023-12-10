@@ -341,7 +341,7 @@ function redirectToArtist( numClicked ) {
     window.location.href = 'artist.html';
 }
 
-function readFromLocalStorageTrack() {
+function readFromSessionStorageTrack() {
     const storedData = sessionStorage.getItem('spotifyTrackData');
 
     if (storedData) {
@@ -362,7 +362,7 @@ function readFromLocalStorageTrack() {
     }
 }
 
-function readFromLocalStorageArtist() {
+function readFromSessionStorageArtist() {
     const storedData = sessionStorage.getItem('spotifyArtistData');
 
     if (storedData) {
@@ -381,7 +381,7 @@ function readFromLocalStorageArtist() {
     }
 }
 
-function readFromLocalStorageAlbum() {
+function readFromSessionStorageAlbum() {
     const storedData = sessionStorage.getItem('spotifyAlbumData');
 
     if (storedData) {
@@ -399,4 +399,20 @@ function readFromLocalStorageAlbum() {
     } else {
         alert('No data found in sessionStorage.');
     }
+}
+
+function getTopRated(category) { // category is either album, track, or artist
+    const xhttpr = new XMLHttpRequest(); 
+    xhttpr.open('GET', 'http://' + url + '/get-top-reviews?review_type=' + category, true);
+    xhttpr.send();
+    xhttpr.onload = ()=> { 
+        if (xhttpr.status === 200) { 
+            const response = JSON.parse(xhttpr.response);
+            for(let i = 0; i < 5; i++) {
+                console.log(response[i]);
+            }
+        } else { 
+            alert("Error with Retrieving " + category + " Data");
+        } 
+        };
 }
