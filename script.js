@@ -183,14 +183,10 @@ function submitRating(category) {
         ratingData = spotifyAlbumData;
     }
 
-    const ratingValue = parseInt(document.getElementById('rating').value.trim());
+    const ratingValue = document.getElementById('rating').value.trim();
 
     if(ratingValue === ""){
         alert('Please enter a rating before submitting.');
-        return;
-    }
-    else if(ratingValue < 1 || ratingValue > 10){
-        alert("Please leave a rating from 1-10!");
         return;
     }
     username = sessionStorage.getItem("username");
