@@ -39,7 +39,7 @@ async def login(username: str, password: str):
     else:
         return {"username": username}
 
-@app.get("/register")
+@app.post("/register")
 async def register(username: str, password: str):
     if username in users["username"].values:
         return {"msg": "username already exists"}

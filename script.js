@@ -86,7 +86,7 @@ function submitRegistrationForm() {
         return false;
     }
     const xhttpr = new XMLHttpRequest(); 
-    xhttpr.open('GET', 'http://127.0.0.1:8000/register?username='+ username + '&password='+ password, true); 
+    xhttpr.open('POST', 'http://127.0.0.1:8000/register?username='+ username + '&password='+ password, true); 
     
     xhttpr.send(); 
     
