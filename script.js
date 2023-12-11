@@ -401,81 +401,75 @@ function readFromSessionStorageAlbum() {
     }
 }
 
-function getTopRated(category) { // category is either album, track, or artist
-    const xhttpr = new XMLHttpRequest(); 
+function getTopRated(category, callback) {
+    const xhttpr = new XMLHttpRequest();
     xhttpr.open('GET', 'http://' + url + '/get-top-reviews?review_type=' + category, true);
     xhttpr.send();
-    xhttpr.onload = ()=> { 
-        if (xhttpr.status === 200) { 
+    xhttpr.onload = () => {
+        if (xhttpr.status === 200) {
             const response = JSON.parse(xhttpr.response);
-            for(let i = 0; i < 5; i++) {
-                console.log(response[i]);
-            }
-            return response;
-        } else { 
+            callback(response); // Call the callback with the response
+        } else {
             alert("Error with Retrieving " + category + " Data");
-            return null;
-        } 
-        };
+            callback(null); // Call the callback with null in case of an error
+        }
+    };
 }
 
 function updateTopRatedAlbums() {
-    top5RatedData = getTopRated('album');
-    if( top5RatedData === null ) {
-        return;
-    }
+    getTopRated('album', function(top5RatedData) {
+        if (top5RatedData === null) {
+            return;
+        }
 
-    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
-        const entryElement = document.getElementById(`entry${i + 1}`);
-        const imgElement = entryElement.querySelector("img");
-        const nameElement = entryElement.querySelector("p:nth-child(2)");
-        const artistElement = entryElement.querySelector("p:nth-child(3)");
+        for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+            const entryElement = document.getElementById(`entry${i + 1}`);
+            const imgElement = entryElement.querySelector("img");
+            const nameElement = entryElement.querySelector("p:nth-child(2)");
+            const artistElement = entryElement.querySelector("p:nth-child(3)");
 
-        imgElement.src = top5RatedData[i]["image"];
-        imgElement.alt = top5RatedData[i]["name"];
-        nameElement.innerText = "Name: " + top5RatedData[i]["name"];
-        artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
-
-    }
-
+            imgElement.src = top5RatedData[i]["image"];
+            imgElement.alt = top5RatedData[i]["name"];
+            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+            artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+        }
+    });
 }
 
 function updateTopRatedArtists() {
-    top5RatedData = getTopRated('artist');
-    if( top5RatedData === null ) {
-        return;
-    }
+    getTopRated('artist', function(top5RatedData) {
+        if (top5RatedData === null) {
+            return;
+        }
 
-    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
-        const entryElement = document.getElementById(`entry${i + 1}`);
-        const imgElement = entryElement.querySelector("img");
-        const pElement = entryElement.querySelector("p");
+        for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+            const entryElement = document.getElementById(`entry${i + 1}`);
+            const imgElement = entryElement.querySelector("img");
+            const nameElement = entryElement.querySelector("p:nth-child(2)");
 
-        imgElement.src = top5RatedData[i]["image"];
-        imgElement.alt = top5RatedData[i]["name"];
-        pElement.innerText = "Name: " + top5RatedData[i]["name"];
-    }
-
+            imgElement.src = top5RatedData[i]["image"];
+            imgElement.alt = top5RatedData[i]["name"];
+            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+        }
+    });
 }
 
 function updateTopRatedTracks() {
-    top5RatedData = getTopRated('track');
-    if( top5RatedData === null ) {
-        return;
-    }
+    getTopRated('track', function(top5RatedData) {
+        if (top5RatedData === null) {
+            return;
+        }
 
-    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
-        const entryElement = document.getElementById(`entry${i + 1}`);
-        const imgElement = entryElement.querySelector("img");
-        const nameElement = entryElement.querySelector("p:nth-child(2)");
-        const artistElement = entryElement.querySelector("p:nth-child(3)");
-        const albumElement = entryElement.querySelector("p:nth-child(4)");
+        for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+            const entryElement = document.getElementById(`entry${i + 1}`);
+            const imgElement = entryElement.querySelector("img");
+            const nameElement = entryElement.querySelector("p:nth-child(2)");
+            const artistElement = entryElement.querySelector("p:nth-child(3)");
 
-        imgElement.src = top5RatedData[i]["image"];
-        imgElement.alt = top5RatedData[i]["name"];
-        nameElement.innerText = "Name" + top5RatedData[i]["name"];
-        artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
-        albumElement.innerText = "Album: " + top5RatedData[i]["album"];
-    }
-
+            imgElement.src = top5RatedData[i]["image"];
+            imgElement.alt = top5RatedData[i]["name"];
+            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+            artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+        }
+    });
 }
