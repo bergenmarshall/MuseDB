@@ -427,11 +427,14 @@ function updateTopRatedAlbums() {
             const imgElement = entryElement.querySelector("img");
             const nameElement = entryElement.querySelector("p:nth-child(2)");
             const artistElement = entryElement.querySelector("p:nth-child(3)");
+            const ratingElement = entryElement.querySelector("p:nth-child(4)");
+
 
             imgElement.src = top5RatedData[i]["image"];
             imgElement.alt = top5RatedData[i]["name"];
-            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+            nameElement.innerText = (i+1) + ". Name: " + top5RatedData[i]["name"];
             artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+            ratingElement.innerText = "Rating: " + top5RatedData[i]["rating"];
         }
     });
 }
@@ -446,10 +449,13 @@ function updateTopRatedArtists() {
             const entryElement = document.getElementById(`entry${i + 1}`);
             const imgElement = entryElement.querySelector("img");
             const nameElement = entryElement.querySelector("p:nth-child(2)");
+            const ratingElement = entryElement.querySelector("p:nth-child(3)");
+
 
             imgElement.src = top5RatedData[i]["image"];
             imgElement.alt = top5RatedData[i]["name"];
-            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+            nameElement.innerText = (i + 1) + ". Name: " + top5RatedData[i]["name"];
+            ratingElement.innerText = "Rating: " + top5RatedData[i]["rating"];
         }
     });
 }
@@ -465,11 +471,13 @@ function updateTopRatedTracks() {
             const imgElement = entryElement.querySelector("img");
             const nameElement = entryElement.querySelector("p:nth-child(2)");
             const artistElement = entryElement.querySelector("p:nth-child(3)");
+            const ratingElement = entryElement.querySelector("p:nth-child(4)");
 
             imgElement.src = top5RatedData[i]["image"];
             imgElement.alt = top5RatedData[i]["name"];
-            nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+            nameElement.innerText = (i + 1) + ". Name: " + top5RatedData[i]["name"];
             artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+            ratingElement.innerText = "Rating: " + top5RatedData[i]["rating"];
         }
     });
 }
