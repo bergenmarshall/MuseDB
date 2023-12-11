@@ -17,3 +17,6 @@
             - If this does not work, you may need to run 'python -m uvicorn main:app --reload'
 - The API should now be running. Look at the result of the uvicorn function to learn where, but it is usually 127.0.0.1:8000
 - If you want to see a good view of our endpoints and test them, check out the /docs page, where swagger is hooked up. (127.0.0.1:8000/docs)
+
+#UPDATE
+run 'python ./setup.py'
