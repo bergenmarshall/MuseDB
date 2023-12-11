@@ -465,11 +465,13 @@ function updateTopRatedTracks() {
             const imgElement = entryElement.querySelector("img");
             const nameElement = entryElement.querySelector("p:nth-child(2)");
             const artistElement = entryElement.querySelector("p:nth-child(3)");
+            const albumElement = entryElement.querySelector("p:nth-child(4)")
 
             imgElement.src = top5RatedData[i]["image"];
             imgElement.alt = top5RatedData[i]["name"];
             nameElement.innerText = "Name: " + top5RatedData[i]["name"];
             artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+            albumElement.innerText = "Album: " + top5RatedData[i]["album"];
         }
     });
 }
