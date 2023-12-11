@@ -43,8 +43,10 @@ function submitLoginForm() {
         const response = JSON.parse(xhttpr.response); 
         if (response.msg == "incorrect username")
             {
-                attempt --;// Decrementing by one.
-                alert("incorrect username, You have" +attempt+" attempts left");
+                if (attempt > 0){
+                    attempt --;// Decrementing by one.
+                }
+                alert("incorrect username, You have " +attempt+" attempts left");
                 // Disabling fields after 3 attempts.
                 if( attempt == 0){
                 document.getElementById("username").disabled = true;
@@ -54,8 +56,10 @@ function submitLoginForm() {
                 } 
             } else if (response.msg == "incorrect password")
             {
-                attempt --;// Decrementing by one.
-                alert("incorrect password, You have"+attempt+" attempts left");
+                if (attempt > 0){
+                    attempt --;// Decrementing by one.
+                }
+                alert("incorrect password, You have "+attempt+" attempts left");
                 // Disabling fields after 3 attempts.
                 if( attempt == 0){
                 document.getElementById("username").disabled = true;
