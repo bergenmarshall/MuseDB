@@ -411,8 +411,71 @@ function getTopRated(category) { // category is either album, track, or artist
             for(let i = 0; i < 5; i++) {
                 console.log(response[i]);
             }
+            return response;
         } else { 
             alert("Error with Retrieving " + category + " Data");
+            return null;
         } 
         };
+}
+
+function updateTopRatedAlbums() {
+    top5RatedData = getTopRated('album');
+    if( top5RatedData === null ) {
+        return;
+    }
+
+    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const nameElement = entryElement.querySelector("p:nth-child(2)");
+        const artistElement = entryElement.querySelector("p:nth-child(3)");
+
+        imgElement.src = top5RatedData[i]["image"];
+        imgElement.alt = top5RatedData[i]["name"];
+        nameElement.innerText = "Name: " + top5RatedData[i]["name"];
+        artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+
+    }
+
+}
+
+function updateTopRatedArtists() {
+    top5RatedData = getTopRated('artist');
+    if( top5RatedData === null ) {
+        return;
+    }
+
+    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const pElement = entryElement.querySelector("p");
+
+        imgElement.src = top5RatedData[i]["image"];
+        imgElement.alt = top5RatedData[i]["name"];
+        pElement.innerText = "Name: " + top5RatedData[i]["name"];
+    }
+
+}
+
+function updateTopRatedTracks() {
+    top5RatedData = getTopRated('track');
+    if( top5RatedData === null ) {
+        return;
+    }
+
+    for (let i = 0; i < Object.keys(top5RatedData).length; i++) {
+        const entryElement = document.getElementById(`entry${i + 1}`);
+        const imgElement = entryElement.querySelector("img");
+        const nameElement = entryElement.querySelector("p:nth-child(2)");
+        const artistElement = entryElement.querySelector("p:nth-child(3)");
+        const albumElement = entryElement.querySelector("p:nth-child(4)");
+
+        imgElement.src = top5RatedData[i]["image"];
+        imgElement.alt = top5RatedData[i]["name"];
+        nameElement.innerText = "Name" + top5RatedData[i]["name"];
+        artistElement.innerText = "Artist: " + top5RatedData[i]["artist"];
+        albumElement.innerText = "Album: " + top5RatedData[i]["album"];
+    }
+
 }

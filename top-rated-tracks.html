@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="styles.css">
     <title>Top Rated Tracks - MuseDB</title>
 </head>
-<body>
+<body onload="updateTopRatedTracks()">
 
 <!-- Page Header -->
 <header>
     <img src="logo.png" alt="museDB Logo" onclick="redirectToHome()">
-    <h1>museDB</h1>
+    <h1>MuseDB</h1>
 </header>
 
 <!-- Top Rated Songs Content -->
@@ -20,16 +20,39 @@
 
     <!-- Placeholder Content (Replace with API data) -->
     <div class="row">
-        <div class="media">
-            <p>That's Life - Frank Sinatra</p>
+        <div class="media" id="entry1">
+            <img src="placeholder_image_1.jpg" alt="Album 1" class = "resultimg">
+            <p>Track 1 Name</p>
+            <p>Track 1 Artist</p>
+            <p>Track 1 Album</p>
         </div>
 
-        <div class="media">
-            <p>Power Flower - Stevie Wonder</p>
+        <div class="media" id="entry2">
+            <img src="placeholder_image_2.jpg" alt="Album 2" class = "resultimg">
+            <p>Track 2 Name</p>
+            <p>Track 2 Artist</p>
+            <p>Track 2 Album</p>
         </div>
 
-        <div class="media">
-            <p>Just The Way You Are - Billy Joel</p>
+        <div class="media" id="entry3">
+            <img src="placeholder_image_3.jpg" alt="Album 3" class = "resultimg">
+            <p>Track 3 Name</p>
+            <p>Track 3 Artist</p>
+            <p>Track 3 Album</p>
+        </div>
+
+        <div class="media" id="entry4">
+            <img src="placeholder_image_4.jpg" alt="Album 4" class = "resultimg">
+            <p>Track 4 Name</p>
+            <p>Track 4 Artist</p>
+            <p>Track 4 Album</p>
+        </div>
+
+        <div class="media" id="entry5">
+            <img src="placeholder_image_5.jpg" alt="Album 5" class = "resultimg">
+            <p>Track 5 Name</p>
+            <p>Track 5 Artist</p>
+            <p>Track 5 Album</p>
         </div>
     <div>
 </div>
